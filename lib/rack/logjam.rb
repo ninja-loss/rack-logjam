@@ -1,7 +1,10 @@
-require "rack/logjam/version"
-
 module Rack
+
   module Logjam
-    # Your code goes here...
+
+    autoload :VERSION,    'rack/logjam/version'
+    autoload :Middleware, 'rack/logjam/middleware'
+
   end
+
 end
