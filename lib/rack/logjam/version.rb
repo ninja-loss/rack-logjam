@@ -1,0 +1,9 @@
+module Rack
+
+  module Logjam
+
+    VERSION = '0.0.1'
+
+  end
+
+end
