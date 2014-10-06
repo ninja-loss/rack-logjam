@@ -41,7 +41,7 @@ module Rack
 Status: #{status}
 Headers: #{headers.inspect}
 Body:
-#{ANSI.cyan { format_body( response.body, accept( env ), env ) }}
+#{ANSI.cyan { format_body( (response.body rescue response), accept( env ), env ) }}
         end_info
       end
 
@@ -85,6 +85,7 @@ Body:
       end
 
       def format_body( body, format, env )
+        return body.inspect if body.is_a?( Array )
         return body if body.strip.nil? || body.strip.empty?
 
         if format == ::Mime::JSON.to_s
