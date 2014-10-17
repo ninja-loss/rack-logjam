@@ -1,7 +1,5 @@
 module Rack
-
   module Logjam
-
     class ANSI
 
       def self.resolve_text( color, &block )
@@ -38,7 +36,5 @@ module Rack
       end
 
     end
-
   end
-
 end
