@@ -6,11 +6,16 @@ module Rack
       class Json < Rack::Logjam::Filters::Base
 
         def render
+          return content if blank_content?
           apply_filters
           json_path.to_json
         end
 
       protected
+
+        def blank_content?
+          content.nil? || content.strip.empty?
+        end
 
         def apply_filters
           filters.each do |j_path, action, length|
