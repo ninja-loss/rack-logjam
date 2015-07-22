@@ -37,7 +37,7 @@ Include the middleware in your API classes with the `use` statement
 
 Require the middleware in `config/application.rb`
 
-    config.middleware.use( 'Rack::Logjam::Middleware' )
+    config.middleware.use( 'Rack::Logjam::Rails::Middleware' )
 
 ### Configuration
 
