@@ -7,21 +7,19 @@ module Rack
 
       def log_request( env )
         _logger.info <<-end_info
-[#{ANSI.green { 'api' }}] #{ANSI.cyan { '--- Request Env ---' }}
-#{ANSI.magenta { JSON.pretty_generate( request_log_data( env )) }}
-[#{ANSI.green { 'api' }}] #{ANSI.cyan { '--- Request Body ---' }}
-#{ANSI.cyan { formatted_request_body( env ) }}
+#{ANSI.cyan { '--- HTTP Request ---' }}
+Headers: #{ANSI.magenta { request_log_data( env ).inspect }}
+Body: #{ANSI.cyan { formatted_request_body( env ) }}
 end_info
       end
 
       def log_response( env, status, headers, response )
         _logger.info <<-end_info
-[#{ANSI.green { 'api' }}] #{ANSI.cyan { '--- Response ---' }}
+#{ANSI.cyan { '--- HTTP Response ---' }}
 Status: #{status}
 Headers: #{headers.inspect}
-Body:
-#{ANSI.cyan { format_body( (response.body rescue response), accept( env ), env ) }}
-        end_info
+Body: #{ANSI.cyan { format_body( (response.body rescue response), accept( env ), env ) }}
+end_info
       end
 
     protected

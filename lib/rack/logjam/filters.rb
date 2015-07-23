@@ -3,6 +3,7 @@ module Rack
     module Filters
 
       autoload :Base, 'rack/logjam/filters/base'
+      autoload :FormUrlencoded, 'rack/logjam/filters/form_urlencoded'
       autoload :Json, 'rack/logjam/filters/json'
       autoload :Nil,  'rack/logjam/filters/nil'
 

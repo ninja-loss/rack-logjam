@@ -11,10 +11,14 @@ module Rack
         end
 
         def call( env )
-          before env
+          if api_request?(env)
+            app.call(env)
+          else
+            before env
 
-          app.call( env ).tap do |rack_response|
-            after env, *rack_response
+            app.call( env ).tap do |rack_response|
+              after env, *rack_response
+            end
           end
         end
 
@@ -23,14 +27,10 @@ module Rack
         attr_reader :app
 
         def before( env )
-          return if api_request?( env )
-
           logger.log_request( env )
         end
 
         def after( env, status, headers, response )
-          return if api_request?( env )
-
           logger.log_response( env, status, headers, response )
         end
 
