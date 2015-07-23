@@ -23,19 +23,19 @@ module Rack
         attr_reader :app
 
         def before( env )
-          return unless api_request?( env )
+          return if api_request?( env )
 
           logger.log_request( env )
         end
 
         def after( env, status, headers, response )
-          return unless api_request?( env )
+          return if api_request?( env )
 
           logger.log_response( env, status, headers, response )
         end
 
         def api_request?( env )
-          path_info( env ) =~ /^\/api\//
+          !(path_info( env ) =~ /^\/api\//).nil?
         end
 
         def path_info( env )

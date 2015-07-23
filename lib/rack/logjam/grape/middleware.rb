@@ -7,14 +7,10 @@ module Rack
       class Middleware < ::Grape::Middleware::Base
 
         def before
-          return unless api_request?( env )
-
           logger.log_request( env )
         end
 
         def after
-          return unless api_request?( env )
-
           status = @app_response.status
           headers = @app_response.header
           body = @app_response.body.last
