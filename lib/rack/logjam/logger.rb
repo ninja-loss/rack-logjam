@@ -72,8 +72,8 @@ end_info
       end
 
       def fetch_formatter( format, body )
-        return Rack::Logjam::Formatters::Empty if body.nil? || body.strip.empty?
         return Rack::Logjam::Formatters::Array if body.is_a?( Array )
+        return Rack::Logjam::Formatters::Empty if body.nil? || body.strip.empty?
         Rack::Logjam::Formatters.get( format )
       end
 
