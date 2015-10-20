@@ -59,11 +59,15 @@ end_info
       end
 
       def format_body( body, format, env )
-        filter = fetch_filter( format, body )
-        filtered = filter.render
+        if body.length > 4096
+          'Body too large to log'
+        else
+          filter = fetch_filter( format, body )
+          filtered = filter.render
 
-        formatter = fetch_formatter( format, body ).new( filtered, format )
-        formatter.render
+          formatter = fetch_formatter( format, body ).new( filtered, format )
+          formatter.render
+        end
       end
 
       def fetch_filter( format, body )
