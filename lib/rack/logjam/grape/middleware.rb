@@ -11,6 +11,10 @@ module Rack
         end
 
         def after
+          if @app_response.nil?
+            ::Rack::Logjam::logger.info "@app_response is nil. WTF Grape? https://github.com/ruby-grape/grape/issues/1265"
+            return
+          end
           status = @app_response.status
           headers = @app_response.header
           body = @app_response.body.last
