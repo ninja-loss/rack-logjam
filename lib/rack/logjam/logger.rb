@@ -13,7 +13,8 @@ module Rack
 
       def log_response(env, status, headers, response)
         _logger.info "HTTP Response: #{status} #{headers.inspect}"
-        _logger.info "HTTP Response Body: : #{ANSI.cyan { format_body((response.body rescue response), accept(env), env) }}"
+        formatted_body = format_body((response.body rescue response), accept(env), env)
+        _logger.info "HTTP Response Body: #{ANSI.cyan { formatted_body }}" if formatted_body
       end
 
       protected
