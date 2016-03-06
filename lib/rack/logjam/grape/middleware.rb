@@ -7,17 +7,17 @@ module Rack
       class Middleware < ::Grape::Middleware::Base
 
         def before
-          return unless api_request?( env )
-
           logger.log_request( env )
         end
 
         def after
-          return unless api_request?( env )
-
-          status = @app_response.first
-          headers = @app_response[1]
-          body = @app_response.last.body.last
+          if @app_response.nil?
+            ::Rack::Logjam::logger.info "@app_response is nil. WTF Grape? https://github.com/ruby-grape/grape/issues/1265"
+            return
+          end
+          status = @app_response.status
+          headers = @app_response.header
+          body = @app_response.body.last
 
           #logger.log_response( env, status, headers, response )
           logger.log_response( env, status, headers, body )
